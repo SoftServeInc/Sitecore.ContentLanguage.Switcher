@@ -1,5 +1,7 @@
-# Sitecore.ContentLanguage.Switcher
-Feature to Automatically Switch Content Language
+# Sitecore ContentLanguage Switcher
+
+ContentLanguage.Switcher is a small module to switch automatically content language in Content Editor base on a site setting.
+
 
 Sitecore allows us to set site language (or contentLanguage) in the site configuration (see [documentation](https://doc.sitecore.com/SdnArchive/Articles/Administration/Configuring%20Multiple%20Sites/Adding%20New%20Site/site%20Attribute%20Properties.html)). What if we had possibility, to automatically change content language in Content Manager depending on the selected site? In fact, with some simple customization we can easily achieve that!
 
@@ -10,10 +12,14 @@ First, we need to figure out how context change is handled in Content Tree. The 
 Here, we can see which class is used as CodeBeside (`ContentEditorForm`) and that there is a placeholder defined for Content Tree, so we are on good track - it's time to do some digging in code. You will probably notice that many things are happening here, but lucky for us we need to put interest only on two methods:
 
 First, which initializes sidebar:
+<details>
+  <summary>Show me the code</summary>
+    
 ```csharp
+
     protected virtual Sidebar GetSidebar()
     {
-      Sitecore.Shell.Applications.ContentManager.Sidebars.Tree result = new Sitecore.Shell.Applications.ContentManager.Sidebars.Tree();
+      var result = new Sitecore.Shell.Applications.ContentManager.Sidebars.Tree();
       result.ID = "Tree";
       result.DataContext = new DataContext()
       {
@@ -21,7 +27,9 @@ First, which initializes sidebar:
       };
       return (Sidebar) Assert.ResultNotNull<Sitecore.Shell.Applications.ContentManager.Sidebars.Tree>(result);
     }
+
 ```
+</details>
 
 Second, executed during context change (i.e. new item selection):
 ```csharp
