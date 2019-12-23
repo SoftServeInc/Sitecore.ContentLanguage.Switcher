@@ -5,11 +5,13 @@ ContentLanguage.Switcher is a small module to switch automatically content langu
 
 Sitecore allows us to set site language (or contentLanguage) in the site configuration (see [documentation](https://doc.sitecore.com/SdnArchive/Articles/Administration/Configuring%20Multiple%20Sites/Adding%20New%20Site/site%20Attribute%20Properties.html)). What if we had possibility, to automatically change content language in Content Manager depending on the selected site? In fact, with some simple customization we can easily achieve that!
 
-Let me describe step by step how to do it.
+## Default implementation of Content Manager
 
 First, we need to figure out how context change is handled in Content Tree. The best starting point will be to check Content Manager page located in `sitecore\shell\Applications\Content Manager\Default.aspx`.
 ![Image](https://user-images.githubusercontent.com/1537372/71258682-17f00200-2337-11ea-8e88-be25741a9ddf.png)
-Here, we can see which class is used as CodeBeside (`ContentEditorForm`) and that there is a placeholder defined for Content Tree, so we are on good track - it's time to do some digging in code. You will probably notice that many things are happening here, but lucky for us we need to put interest only on two methods:
+
+Here, we can see which class is used as CodeBeside (`ContentEditorForm`) and that there is a placeholder defined for Content Tree, so we are on good track - it's time to do some digging in code. 
+You will probably notice that many things are happening here, but lucky for us we need to put interest only on two methods:
 
 First, which initializes sidebar:
 <details>
